@@ -1,11 +1,14 @@
 # -*- coding: utf-8 -*-
 import cv2
+import numpy
+
+cv2.__version__
 
 # 分類器ディレクトリ(以下から取得)
 # https://github.com/opencv/opencv/blob/master/data/haarcascades/
 # https://github.com/opencv/opencv_contrib/blob/master/modules/face/data/cascades/
 
-cascade_path = "./opencv/data/haarcascades/haarcascade_frontalface_default.xml"
+cascade_path = "./data/haarcascades/haarcascade_frontalface_default.xml"
 
 # 他のモデルファイル(参考)
 #cascade_path = "./models/haarcascade_frontalface_alt.xml"
@@ -27,11 +30,11 @@ output_path = "./output/gakki.jpg"
 
 #ファイル読み込み
 image = cv2.imread(image_path)
-# cv2.namedWindow('window')
-# image_gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
-# cv2.imshow('window', image_gray)
-# cv2.waitKey(0)
-# cv2.destroyAllWindows()
+cv2.namedWindow('window')
+image_gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+cv2.imshow('window', image_gray)
+cv2.waitKey(0)
+cv2.destroyAllWindows()
 
 #グレースケール変換
 image_gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
@@ -56,7 +59,7 @@ if len(facerect) > 0:
 
     #検出した顔を囲む矩形の作成
     for rect in facerect:
-        cv2.rectangle(image, tuple(rect[0:2]),tuple(rect[0:2]+rect[2:4]), color, thickness=2)
+        cv2.rectangle(image, tuple(rect[0:2]), tuple(rect[0:2]+rect[2:4]), color, thickness=2)
 
     #認識結果の保存
     cv2.imwrite(output_path, image)
